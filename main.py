@@ -63,7 +63,7 @@ class Fighter(Persons):
             print("Ошибка: нельзя атаковать не монстра!")
             return
 
-        if isinstance(self.weapon, Shield):
+        if isinstance(self.weapon, Shield) or self.weapon==None:
             print(f'«{self.name}» защитился от атаки {monster.name}, разошлись краями...')
         else:
             self.weapon.attack()
@@ -141,6 +141,11 @@ view(Fighter)
 
 # # Бой
 action_warrior.fight(goblin)  # Атака гоблина
+action_warrior.fight(goblin)
+action_warrior.fight(goblin)
+action_warrior.fight(goblin)
+action_warrior.fight(goblin)
+
 f1.delete_self()
 # # Просмотр экземпляров после боя
 view(Monster)
