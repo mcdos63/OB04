@@ -15,8 +15,11 @@ class Registry(metaclass=AutoRegisterMeta):
     def get_instances(cls, target_cls):
         return {instance for instance in AutoRegisterMeta._instances if isinstance(instance, target_cls)}
     def delete_self(self):
-        print(f"Уничтожен «{self.name}» ... ({self.__class__.__name__})")
-        AutoRegisterMeta._instances.discard(self)
+        if self is not None:
+            print(f"Уничтожен «{self.name}» ... ({self.__class__.__name__})")
+            AutoRegisterMeta._instances.discard(self)
+        else:
+            print('Что-то пошло не так...')
 
 def view(cls):
     res = Registry.get_instances(cls)
@@ -134,6 +137,7 @@ action_warrior = Fighter("Действующий воин", health=150, weapon=S
 action_archer = Fighter("Действующий лучник", health=100, weapon=Bow())
 f1 = Fighter("Валериан", health=90, weapon=Sword())
 f2 = Fighter("Вальдемар", health=100, weapon=Shield())
+f3 = Fighter("Овдей", health=90)
 
 # Просмотр экземпляров
 view(Monster)
@@ -145,6 +149,9 @@ action_warrior.fight(goblin)
 action_warrior.fight(goblin)
 action_warrior.fight(goblin)
 action_warrior.fight(goblin)
+
+f3.fight(dragon)
+f2.fight(dragon)
 
 f1.delete_self()
 # # Просмотр экземпляров после боя
